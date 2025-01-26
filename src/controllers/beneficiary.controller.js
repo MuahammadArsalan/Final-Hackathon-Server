@@ -2,22 +2,22 @@
 import beneficiaryModel from "../models/beneficiary.model.js";
 
 
+
+
 const CreateBeneficiary = async (req, res) => {
-  const { fullname, cnic, contactNumber, email, address, purpose } = req.body;
+  const { name, cnic, phone, address,purpose } = req.body;
 
 
-  if (!fullname) {
-    return res.json({ message: "fullname required" });
+  if (!name) {
+    return res.json({ message: "name required" });
   }
   if (!cnic) {
     return res.json({ message: "cnic required" });
   }
-  if (!contactNumber) {
-    return res.json({ message: "contactNumber required" });
+  if (!phone) {
+    return res.json({ message: "phone required" });
   }
-  if (!email) {
-    return res.json({ message: "email required" });
-  }
+  
   if (!purpose) {
     return res.json({ message: "purpose required" });
   }
@@ -25,12 +25,26 @@ const CreateBeneficiary = async (req, res) => {
     return res.json({ message: "address required" });
   }
 
+try {
+    
+  let checkbeneficiary = await beneficiaryModel.find({cnic})
+
+if(checkbeneficiary){
+
+res.json({
+  message:"Beneficiary Already exist"
+
+})}  
+
+} catch (error) {
+ console.log(error);
+    
+}
   try {
-    let beneficiary = await beneficiary.create({
-      fullname,
+    let beneficiary = await beneficiaryModel.create({
+      name,
       cnic,
-      email,
-      contactNumber,
+      phone,
       address,
       purpose
     })
@@ -42,23 +56,23 @@ const CreateBeneficiary = async (req, res) => {
   }
 };
 
-// const getBeneficiary = async(req,res)=>{
+const getBeneficiary = async(req,res)=>{
 
-// const getall = await beneficiary.find({})
+const getall = await beneficiaryModel.find({})
 
-// if(!getall){
-//     res.json({
-//         message:"No Beneficiary found"
-//     })
-// }
+if(!getall){
+    res.json({
+        message:"No Beneficiary found"
+    })
+}
 
-// res.json({
-//     message:"successfully",
-//     data:getall
+res.json({
+    message:"successfully executed",
+    data:getall
 
-// })
+})
 
-// }
+}
 
 
-export {CreateBeneficiary}
+export {CreateBeneficiary,getBeneficiary}

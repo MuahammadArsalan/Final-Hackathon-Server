@@ -1,8 +1,10 @@
 
 import express from 'express'
-import { CreateBeneficiary } from '../controllers/beneficiary.controller.js'
+import { CreateBeneficiary, getBeneficiary } from '../controllers/beneficiary.controller.js'
 
 const router = express.Router()
 
-router.post('/ceate',CreateBeneficiary)
+router.post('/create', CreateBeneficiary)
+router.get('/get', getBeneficiary)
+
 export default router

@@ -117,4 +117,4 @@ res.json({
 
 
 
-export  {registerUser, loginUser,logOut,refreshToken} 
+export  {registerUser, loginUser,logOut} 
