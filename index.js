@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import connectDB from './src/db/index.js';
 import cookieParser from 'cookie-parser';
 import useRouters from './src/routes/users.route.js'
+import beneficiaryRoutes from './src/routes/beneficiary.routes.js'
 const app = express()
 
 dotenv.config()
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser())
 
 app.use('/api/v1',useRouters)
+app.use('/api/v1',beneficiaryRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

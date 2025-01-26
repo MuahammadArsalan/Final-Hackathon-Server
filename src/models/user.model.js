@@ -1,26 +1,29 @@
 import mongoose, { Schema, Types } from "mongoose";
-import bcrypt from 'bcrypt'
 
-const schema = mongoose.Schema
-
-const userSchema = new schema(
+const userSchema = new Schema(
     {
-        email:{
-            type:String,
-            required:[true,'Email is required'],
-            unique:true
-        
-        },
-        password:{
-            type:String,
-            required:[true,'Password is required']
-        },
-        username:{
-            type:String,
-            require:true
-        }
-    }
-)
+      username:{
+type:String,
+required:[true,'Email is required'],
+      },
+      email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: true
+      },
+      password: {
+        type: String,
+        required: [true, 'Password is required']
+      },
+      role: {
+        type: String,
+        enum: ['admin', 'receptionist', 'departmentStaff'],
+        default: 'receptionist',
+        required: [true, 'Role is required']
+      }
+    },
+    { timestamps: true }
+  );
 
 
 userSchema.pre('save',async function(next){
